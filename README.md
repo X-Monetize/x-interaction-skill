@@ -14,7 +14,7 @@ x-interaction-skill/
 ├── platforms/
 │   ├── tutti.md          # Tutti 规则
 │   └── lighthouse.md     # 灯塔规则
-├── references/voice.md   # 账号语气
+├── references/voice.md   # 语气模板（通用，可自行覆盖）
 ├── scripts/fetch_tweet.py
 └── agents/openai.yaml    # Codex 显示信息
 ```
@@ -33,7 +33,13 @@ ln -s /path/to/x-interaction-skill /path/to/project/.claude/skills/x-interaction
 
 ## 使用
 
-```
+两个客户端的唤起前缀不同：
+
+```bash
+# Codex —— $ 前缀
+$x-interaction-skill 灯塔任务，只要回复：https://x.com/xxx/status/123
+
+# Claude Code —— / 前缀
 /x-interaction-skill 灯塔任务，只要回复：https://x.com/xxx/status/123
 ```
 
