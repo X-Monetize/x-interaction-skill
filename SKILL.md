@@ -72,6 +72,18 @@ Then, for each requested type, give two versions, each in its own `text` code bl
 
 End with at most three short notes, only when useful: a claim to verify, a line to delete if the user will not follow through, or a platform rule that shaped the copy.
 
+## 版本与升级
+
+本 Skill 的版本以 `SKILL.md` 开头 frontmatter 里的 `version` 字段为准（语义化版本）。升级说明见 `CHANGELOG.md`。
+
+Agent 在运行时：
+
+- 回答"当前什么版本"：读本文件 frontmatter 的 `version`，例如 `v0.1.0`。
+- 判断"该不该升级"：在 skill 目录下执行 `git ls-remote --tags origin`，取最新的 `v*` tag 与本地 `version` 对比；远端更高就提示有新版本。命令失败（无网络、仓库私有、无 git）时不臆测，改为提示用户自行到仓库查看最新 tag。
+- 不要自动 `git pull` 或改动文件。升级由用户决定。
+
+发布新版本时：更新 `version` 字段、在 `CHANGELOG.md` 顶部加一条记录，并打对应 tag（如 `v0.1.1`）。平台规则变更只改 `platforms/*.md` 时属于 patch 版本；新增平台属于 minor 版本。
+
 ## Maintaining This Skill
 
 When a platform changes its rules, edit only that platform's file and bump its `更新日期`. To add a platform, copy an existing platform file, fill in the same sections, and add it to the Workflow list and the Resolve table above.
