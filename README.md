@@ -34,7 +34,7 @@ ln -s /path/to/x-interaction-skill /path/to/project/.claude/skills/x-interaction
 ## 使用
 
 ```
-$x-interaction-skill 灯塔任务，只要回复：https://x.com/xxx/status/123
+/x-interaction-skill 灯塔任务，只要回复：https://x.com/xxx/status/123
 ```
 
 不写"回复"或"引用"时默认两种都给；不写平台时会先问。

@@ -1,4 +1,4 @@
 interface:
   display_name: "X 互动文案"
   short_description: "给推文链接，按 Tutti 或灯塔规则草拟回复和引用文案"
-  default_prompt: "使用 $x-interaction-skill 按 Tutti 规则为这条推文草拟回复和引用："
+  default_prompt: "使用 /x-interaction-skill 按 Tutti 规则为这条推文草拟回复和引用："
