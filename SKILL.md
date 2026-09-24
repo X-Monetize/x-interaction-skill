@@ -1,6 +1,6 @@
 ---
 name: x-interaction-skill
-version: 0.1.1
+version: 0.2.0
 description: Draft ready-to-post reply and/or quote copy for an X/Twitter status link, following the rules of a task platform (Tutti or 灯塔/Lighthouse). Use when the user gives an x.com or twitter.com link and asks for 回复, 引用, 评论, or both, or mentions a Tutti or 灯塔 task. Reads the tweet through free no-login endpoints only. Output copy for the user to paste and publish manually; never post, schedule, or save files.
 ---
 
@@ -10,15 +10,16 @@ Turn one tweet link into copy the user can paste straight into X. The user publi
 
 ## Resolve the Request
 
-Before fetching, settle three things from the user's message. Ask only if something is genuinely missing and cannot be defaulted.
+Before fetching, settle two things from the user's message. Ask only if something is genuinely missing and cannot be defaulted.
 
 | Item | Values | Default |
 |---|---|---|
 | Output | 回复 / 引用 / 两者 | Both, if the user does not say |
 | Platform | Tutti / 灯塔 | Ask if unclear; the rules differ |
-| Account | @AlexUseAI / @alexgiantwhale | @AlexUseAI |
 
 Words like "评论" mean 回复. "转评" or "带评转发" mean 引用.
+
+The skill holds no account or persona. If the user's message or the surrounding project context (e.g. a CLAUDE.md) describes the voice, use it; otherwise use the default voice in [references/voice.md](references/voice.md).
 
 ## Workflow
 
@@ -41,7 +42,7 @@ Words like "评论" mean 回复. "转评" or "带评转发" mean 引用.
    - The author's actual point and the specific details (numbers, features, steps).
    - If `quoted` is present, read both layers. If `thread` is present, read the whole thread.
    - Skim `replies` for angles already taken, and avoid them.
-5. Read [references/voice.md](references/voice.md) for the account voice.
+5. Read [references/voice.md](references/voice.md) for the voice, and use the user's own voice when the surrounding context provides one.
 6. Write only the requested output types, following the rules below and the platform file.
 7. Stop after returning the copy. Do not create files, update tracking docs, call publishing tools, or post.
 
@@ -66,7 +67,7 @@ Output-type rules (platform files may tighten them):
 
 Start with one line:
 
-`原推：@作者（N 粉）｜一句话概括｜平台：Tutti｜账号：@AlexUseAI`
+`原推：@作者（N 粉）｜一句话概括｜平台：Tutti`
 
 Then, for each requested type, give two versions, each in its own `text` code block so the user can copy it in one click. Label each block with a few words on its angle, for example `回复 A（提问）`. Make the two versions genuinely different, such as one concrete question and one judgment. For replies, include at least one version with a specific question, because it invites the author to respond.
 
