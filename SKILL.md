@@ -1,6 +1,6 @@
 ---
 name: x-interaction-skill
-version: 0.2.0
+version: 0.3.0
 description: Draft ready-to-post reply and/or quote copy for an X/Twitter status link, following the rules of a task platform (Tutti or 灯塔/Lighthouse). Use when the user gives an x.com or twitter.com link and asks for 回复, 引用, 评论, or both, or mentions a Tutti or 灯塔 task. Reads the tweet through free no-login endpoints only. Output copy for the user to paste and publish manually; never post, schedule, or save files.
 ---
 
