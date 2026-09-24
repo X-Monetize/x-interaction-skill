@@ -91,6 +91,8 @@ Agent 在运行时：
 3. `git add -A && git commit -m "chore: bump version to X.Y.Z"`（如改动本身尚未提交，先单独提交改动，再提交版本号）。
 4. `git tag vX.Y.Z && git push origin main vX.Y.Z`。
 
+**纯文档改动不发版**：只改 README、SKILL.md 里的说明文字、CHANGELOG 之外的文档，且不影响 Skill 行为时，直接提交（如 `docs: ...`），不 bump `version`、不加 CHANGELOG、不打 tag。若改了平台规则文件 `platforms/*.md`，那属于行为变化，仍按 patch 发版。
+
 版本号规则（SemVer）：
 
 - **patch（z+1）**：修复、文档修正、平台规则微调、小幅改进。任何已发布内容的修正一律走 patch，不回头改旧版本。
