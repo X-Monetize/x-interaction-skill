@@ -74,15 +74,31 @@ End with at most three short notes, only when useful: a claim to verify, a line 
 
 ## 版本与升级
 
-本 Skill 的版本以 `SKILL.md` 开头 frontmatter 里的 `version` 字段为准（语义化版本）。升级说明见 `CHANGELOG.md`。
+本 Skill 的版本以 `SKILL.md` 开头 frontmatter 里的 `version` 字段为准（语义化版本 `major.minor.patch`）。升级说明见 `CHANGELOG.md`。
 
 Agent 在运行时：
 
-- 回答"当前什么版本"：读本文件 frontmatter 的 `version`，例如 `v0.1.0`。
+- 回答"当前什么版本"：读本文件 frontmatter 的 `version`，例如 `v0.1.1`。
 - 判断"该不该升级"：在 skill 目录下执行 `git ls-remote --tags origin`，取最新的 `v*` tag 与本地 `version` 对比；远端更高就提示有新版本。命令失败（无网络、仓库私有、无 git）时不臆测，改为提示用户自行到仓库查看最新 tag。
 - 不要自动 `git pull` 或改动文件。升级由用户决定。
 
-发布新版本时：更新 `version` 字段、在 `CHANGELOG.md` 顶部加一条记录，并打对应 tag（如 `v0.1.1`）。平台规则变更只改 `platforms/*.md` 时属于 patch 版本；新增平台属于 minor 版本。
+## 发布流程（固化）
+
+每次发版严格按这四步，顺序不能乱：
+
+1. 改 `SKILL.md` frontmatter 的 `version` 为新的版本号。
+2. 在 `CHANGELOG.md` 顶部加一条对应版本的记录。
+3. `git add -A && git commit -m "chore: bump version to X.Y.Z"`（如改动本身尚未提交，先单独提交改动，再提交版本号）。
+4. `git tag vX.Y.Z && git push origin main vX.Y.Z`。
+
+版本号规则（SemVer）：
+
+- **patch（z+1）**：修复、文档修正、平台规则微调、小幅改进。任何已发布内容的修正一律走 patch，不回头改旧版本。
+- **minor（y+1，z 归零）**：新增平台、新增能力。
+- **major（x+1）**：不兼容的大改动。
+
+**铁律：已经推送出去的 tag 绝不覆盖、不 `--force`、不删除重打。** 发现已发布版本有问题，就发下一个 patch 版本修掉，而不是改写历史。所以 `git tag -f` 和 `git push --force` 在任何情况下都不用。
+
 
 ## Maintaining This Skill
 
